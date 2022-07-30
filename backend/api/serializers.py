@@ -16,7 +16,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class IngredientSerializer(serializers.ModelSerializer):
-    """Сериализатор для  ингридиентов."""
+    """Сериализатор для  ингредиентов."""
     class Meta:
         model = Ingredient
         fields = ("id", "name", "measurement_unit")
@@ -76,40 +76,43 @@ class RecipeSerializer(serializers.ModelSerializer):
             id=obj.id).exists()
 
     def validate(self, data):
-        ingredients = self.initial_data.get('ingredients')
+        print(data)
+        ingredients = self.data.get('ingredients')
         if not ingredients:
             raise serializers.ValidationError({
-                'ingredients': 'Необходим минимум один ингридиент для рецепта'}
+                'Необходим минимум один ингредиент для рецепта'}
             )
         ingredient_list = []
         for ingredient_item in ingredients:
             ingredient = get_object_or_404(Ingredient,
                                            id=ingredient_item['id'])
             if ingredient in ingredient_list:
-                raise serializers.ValidationError('Ингридиенты должны '
+                raise serializers.ValidationError('Ингредиенты должны '
                                                   'быть уникальными')
             ingredient_list.append(ingredient)
             if int(ingredient_item['amount']) < 0:
                 raise serializers.ValidationError({
-                    'ingredients': ('Убедитесь, что значение количества '
-                                    'ингредиента больше 0')
+                    'Убедитесь, что значение количества '
+                    'ингредиента больше 0'
                 })
         data['ingredients'] = ingredients
         return data
 
     def create_ingredients(self, ingredients, recipe):
-        for ingredient in ingredients:
-            IngredientRecipe.objects.create(
+        IngredientRecipe.objects.bulk_create(
+            [list_ingredients(
                 recipe=recipe,
                 ingredient_id=ingredient.get('id'),
-                amount=ingredient.get('amount'),
-            )
+                amount=ingredient.get('amount')
+            ) for ingredient in ingredients
+            ]
+        )
 
     def create(self, validated_data):
         image = validated_data.pop('image')
         ingredients_data = validated_data.pop('ingredients')
         recipe = Recipe.objects.create(image=image, **validated_data)
-        tags_data = self.initial_data.get('tags')
+        tags_data = self.validated_data.get('tags')
         recipe.tags.set(tags_data)
         self.create_ingredients(ingredients_data, recipe)
         return recipe

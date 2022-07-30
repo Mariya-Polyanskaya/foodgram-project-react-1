@@ -2,7 +2,7 @@ from csv import reader
 
 from django.core.management.base import BaseCommand
 
-from ...models import Ingredient
+from recipes.models import Ingredient
 
 
 class Command(BaseCommand):

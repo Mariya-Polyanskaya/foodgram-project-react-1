@@ -72,7 +72,9 @@ class FollowSerializer(serializers.ModelSerializer):
     """Сериализатор для модели подписок."""
     is_subscribed = serializers.SerializerMethodField(read_only=True)
     recipes = serializers.SerializerMethodField(read_only=True)
-    recipes_count = serializers.SerializerMethodField(read_only=True)
+    recipes_count = serializers.SerializerMethodField(
+        source='recipes_set.count',
+        read_only=True)
 
     class Meta:
         model = User
@@ -104,6 +106,6 @@ class FollowSerializer(serializers.ModelSerializer):
         return FollowRecipeSerializer(recipes, many=True,
                                       context=context).data
 
-    @staticmethod
-    def get_recipes_count(obj):
-        return obj.recipes.count()
+    # @staticmethod
+    # def get_recipes_count(obj):
+    #     return obj.recipes.count()

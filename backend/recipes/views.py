@@ -1,6 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
-from django.db.models import Sum
 from django.http import HttpResponse
 
 from rest_framework import viewsets
@@ -10,16 +9,15 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from foodgram.pagination import LimitPageNumberPagination
-from .filters import IngredientFilter, RecipeFilter
-from .models import (
-    Tag, Ingredient, Recipe,
-    IngredientRecipe, Favorite, ShoppingCart
-)
-from .serializers import (
+from api.filters import IngredientFilter, RecipeFilter
+from recipes.models import (
+    Tag, Ingredient, Recipe, Favorite, ShoppingCart)
+from api.serializers import (
     TagSerializer, IngredientSerializer,
     RecipeSerializer, ReduceRecipeSerializer
 )
-from .permissions import IsAdminOrReadOnly, IsAuthorOrAdmin
+from api.permissions import IsAdminOrReadOnly, IsAuthorOrAdmin
+from .utils import get_cart
 
 
 class TagIngredientViewSet(viewsets.ReadOnlyModelViewSet):
@@ -27,7 +25,6 @@ class TagIngredientViewSet(viewsets.ReadOnlyModelViewSet):
     ...
 
 
-# class TagViewSet(viewsets.ReadOnlyModelViewSet):
 class TagViewSet(TagIngredientViewSet):
     """ViewSet для тегов."""
     queryset = Tag.objects.all()
@@ -36,7 +33,6 @@ class TagViewSet(TagIngredientViewSet):
     pagination_class = None
 
 
-# class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 class IngredientViewSet(TagIngredientViewSet):
     """ViewSet для ингредиентов."""
     queryset = Ingredient.objects.all()
@@ -64,7 +60,7 @@ class RecipesViewSet(viewsets.ModelViewSet):
     def favorite(self, request, pk=None):
         if request.method == 'GET':
             return self.add_obj(Favorite, request.user, pk)
-        elif request.method == 'DELETE':
+        if request.method == 'DELETE':
             return self.delete_obj(Favorite, request.user, pk)
         return None
 
@@ -73,16 +69,13 @@ class RecipesViewSet(viewsets.ModelViewSet):
     def shopping_cart(self, request, pk=None):
         if request.method == 'GET':
             return self.add_obj(ShoppingCart, request.user, pk)
-        elif request.method == 'DELETE':
+        if request.method == 'DELETE':
             return self.delete_obj(ShoppingCart, request.user, pk)
         return None
 
     @action(detail=False, permission_classes=(IsAuthenticated,))
     def download_shopping_cart(self, request):
-        cart = IngredientRecipe.objects.filter(
-            recipe__shopping_cart__user=request.user).values(
-                'ingredient__name', 'ingredient__measurement_unit').annotate(
-                    count=Sum('amount'))
+        cart = get_cart(self, request)
         response = HttpResponse(content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename="cart.txt"'
         for ingredient in cart:

@@ -32,6 +32,9 @@ class Tag(models.Model):
         unique=True,
         verbose_name='Уникальный слаг')
 
+    def __str__(self):
+        return self.name
+
 
 class Ingredient(models.Model):
     """Модель для одного ингридиента."""
@@ -60,7 +63,7 @@ class Ingredient(models.Model):
         verbose_name_plural = 'Ингредиенты'
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
 
 class Recipe(models.Model):
