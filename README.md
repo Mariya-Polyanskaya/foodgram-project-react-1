@@ -1,1 +1,1 @@
-# praktikum_new_diplom
+### Команда разработчиков: [MaxUMEO](https://github.com/MaxUMEO)
