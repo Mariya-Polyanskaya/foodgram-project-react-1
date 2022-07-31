@@ -13,7 +13,7 @@ services:
     image: maxumeo/foodgram_backend:latest
     restart: always
     volumes:
-      - static_value:/app/static/
+      - static_value:/app/static_foodgram_bk/
       - media_value:/app/media/
     depends_on:
       - db
@@ -32,7 +32,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - static_value:/var/html/static
+      - static_value:/var/html/static_foodgram_bk
       - media_value:/var/html/media
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ./frontend/build:/usr/share/nginx/html/
