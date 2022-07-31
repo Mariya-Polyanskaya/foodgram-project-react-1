@@ -66,5 +66,6 @@ class SubscriptionListView(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        new_queryset = User.objects.filter(following__user=user)
-        return new_queryset
+        # new_queryset = User.objects.filter(following__user=user)
+        # return new_queryset
+        return User.objects.filter(following__user=user)

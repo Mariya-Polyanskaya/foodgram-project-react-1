@@ -55,4 +55,3 @@ class RecipeFilter(filters.FilterSet):
             return Recipe.objects.filter(
                 shopping_recipe__user=self.request.user
             )
-        return None
