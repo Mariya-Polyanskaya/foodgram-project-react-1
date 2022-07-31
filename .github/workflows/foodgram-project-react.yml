@@ -115,7 +115,7 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
           sudo docker compose stop
-          sudo docker compose rm backend
+          sudo docker compose rm jet_max-backend-1
           sudo docker rm ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
           sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
           sudo docker compose up -d
