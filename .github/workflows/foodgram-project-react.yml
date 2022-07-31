@@ -114,6 +114,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
+          cd jet_max/
           echo sudo docker compose stop
           echo sudo docker rm foodgram_frontend_1
           echo sudo docker rm foodgram_backend_1
