@@ -1,19 +1,19 @@
 ## Для ревью чтобы не скролить
 
-http://51.250.99.29
+http://51.250.99.29  
 http://51.250.99.29/admin/
 
-Тестовый суперюзер
+Тестовый суперюзер  
 Логин: ```superuser``` (суперюзер)  
 Email: ```superuser@superuser.ggwp``` 
 Пароль: ```__GodModOn__```  
 
-Тестовый юзер 1
+Тестовый юзер 1  
 Логин: ```test_user_one```  
 Email: ```test_user_one@users.ggwp```  
 Пароль: ```strong_password_1```  
 
-Тестовый юзер 2
+Тестовый юзер 2  
 Логин: ```test_user_two```  
 Email: ```test_user_two@users.ggwp```  
 Пароль: ```strong_password_2```
@@ -235,11 +235,11 @@ Email: ```test_user_two@users.ggwp```
 
 ## Ссылки
 ### Документация API Foodgram:
-http://51.250.99.29/api/docs/redoc.html
+http://51.250.99.29/api/docs/redoc.html  
 ### Развёрнутый проект:
-http://51.250.99.29
-http://51.250.99.29/admin/
+http://51.250.99.29  
+http://51.250.99.29/admin/  
 
 ## Об авторе
-[MaxUMEO](https://github.com/MaxUMEO)
-[Telegram](https://t.me/MaxUMEO)
+[MaxUMEO](https://github.com/MaxUMEO)  
+[TelegramProfile](https://t.me/MaxUMEO)  
