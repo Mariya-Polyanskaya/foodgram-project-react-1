@@ -5,7 +5,7 @@ http://51.250.99.29/admin/
 
 Тестовый суперюзер  
 Логин: ```superuser``` (суперюзер)  
-Email: ```superuser@superuser.ggwp``` 
+Email: ```superuser@superuser.ggwp```  
 Пароль: ```__GodModOn__```  
 
 Тестовый юзер 1  
@@ -168,20 +168,20 @@ docker-compose exec backend python manage.py load_tags
 ```
 
 ### Тестовые пользователи
-Тестовый суперюзер
+Тестовый суперюзер  
 Логин: ```superuser``` (суперюзер)  
-Email: ```superuser@superuser.ggwp``` 
+Email: ```superuser@superuser.ggwp```   
 Пароль: ```__GodModOn__```  
 
-Тестовый юзер 1
+Тестовый юзер 1  
 Логин: ```test_user_one```  
 Email: ```test_user_one@users.ggwp```  
 Пароль: ```strong_password_1```  
 
-Тестовый юзер 2
+Тестовый юзер 2  
 Логин: ```test_user_two```  
 Email: ```test_user_two@users.ggwp```  
-Пароль: ```strong_password_2```
+Пароль: ```strong_password_2```  
 
 ## Пользовательские роли в проекте
 1. Анонимный пользователь
@@ -241,5 +241,5 @@ http://51.250.99.29
 http://51.250.99.29/admin/  
 
 ## Об авторе
-[MaxUMEO](https://github.com/MaxUMEO)  
-[TelegramProfile](https://t.me/MaxUMEO)  
+[MaxUMEO_GitHub](https://github.com/MaxUMEO)  
+[MaxUMEO_Telegram](https://t.me/MaxUMEO)  
