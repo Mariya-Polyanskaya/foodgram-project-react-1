@@ -13,10 +13,10 @@ from .views import (
 app_name = 'users'
 
 api_users_router_v1 = DefaultRouter()
-api_users_router_v1.register('users', CustomUserViewSet)
 api_users_router_v1.register(r'users/subscriptions',
                              SubscriptionListView,
                              basename='subscriptions')
+api_users_router_v1.register('users', CustomUserViewSet)
 
 urlpatterns = [
     path('users/<int:pk>/subscribe/',
