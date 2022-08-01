@@ -76,7 +76,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             id=obj.id).exists()
 
     def validate(self, data):
-        ingredients = self.data.get('ingredients')
+        ingredients = data.get('ingredients')
         if not ingredients:
             raise serializers.ValidationError({
                 'Необходим минимум один ингредиент для рецепта'}
