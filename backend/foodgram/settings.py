@@ -6,9 +6,9 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.getenv('SECRET_KEY', default='kemsgnfljsengko92141')
+SECRET_KEY = os.getenv('SECRET_KEY', default='any_key')
 
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='*').split(',')
 ALLOWED_HOSTS = ['*']
@@ -155,4 +155,3 @@ EMAIL_LENGTH = 254
 USERNAME_LENGTH = 150
 FIRST_NAME_LENGHT = 150
 LAST_NAME_LENGHT = 150
-# test
