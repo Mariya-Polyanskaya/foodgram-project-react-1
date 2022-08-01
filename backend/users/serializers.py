@@ -106,6 +106,6 @@ class FollowSerializer(serializers.ModelSerializer):
         return FollowRecipeSerializer(recipes, many=True,
                                       context=context).data
 
-    # @staticmethod
-    # def get_recipes_count(obj):
-    #     return obj.recipes.count()
+    @staticmethod
+    def get_recipes_count(obj):
+        return obj.recipes.count()

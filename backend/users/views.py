@@ -24,6 +24,7 @@ def subscribe_unsubscribe_author(request, pk):
     """
     Подписка на автора.
     """
+    print(request)
     user = get_object_or_404(User, username=request.user.username)
     author = get_object_or_404(User, pk=pk)
 
@@ -66,6 +67,4 @@ class SubscriptionListView(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        # new_queryset = User.objects.filter(following__user=user)
-        # return new_queryset
         return User.objects.filter(following__user=user)
