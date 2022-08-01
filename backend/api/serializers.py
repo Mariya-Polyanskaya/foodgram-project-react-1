@@ -97,15 +97,23 @@ class RecipeSerializer(serializers.ModelSerializer):
         data['ingredients'] = ingredients
         return data
 
+    # def create_ingredients(self, ingredients, recipe):
+    #     IngredientRecipe.objects.bulk_create(
+    #         [list_ingredients(
+    #             recipe=recipe,
+    #             ingredient_id=ingredient.get('id'),
+    #             amount=ingredient.get('amount')
+    #         ) for ingredient in ingredients
+    #         ]
+    #     )
+
     def create_ingredients(self, ingredients, recipe):
-        IngredientRecipe.objects.bulk_create(
-            [list_ingredients(
+        for ingredient in ingredients:
+            IngredientRecipe.objects.create(
                 recipe=recipe,
                 ingredient_id=ingredient.get('id'),
-                amount=ingredient.get('amount')
-            ) for ingredient in ingredients
-            ]
-        )
+                amount=ingredient.get('amount'),
+            )
 
     def create(self, validated_data):
         image = validated_data.pop('image')
