@@ -15,7 +15,7 @@ app_name = 'users'
 api_users_router_v1 = DefaultRouter()
 api_users_router_v1.register('users', CustomUserViewSet)
 api_users_router_v1.register(
-    'users/subscriptions',
+    r'users/subscriptions',
     SubscriptionListView,
     basename='subscriptions'
 )
