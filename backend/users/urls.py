@@ -14,10 +14,15 @@ app_name = 'users'
 
 api_users_router_v1 = DefaultRouter()
 api_users_router_v1.register('users', CustomUserViewSet)
-api_users_router_v1.register(r'users/subscriptions', SubscriptionListView, basename='subscriptions')
+api_users_router_v1.register(r'users/subscriptions',
+                             SubscriptionListView,
+                             basename='subscriptions')
 
 urlpatterns = [
-    path('users/<int:pk>/subscribe/', subscribe_unsubscribe_author, name='subscribe_unsubscribe_author'),
+    path('users/<int:pk>/subscribe/',
+         subscribe_unsubscribe_author,
+         name='subscribe_unsubscribe_author'
+         ),
     path('', include(api_users_router_v1.urls)),
     path('', include('djoser.urls')),
     path('auth/token/login/', TokenCreateView.as_view(), name='login'),

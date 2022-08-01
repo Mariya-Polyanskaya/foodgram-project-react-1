@@ -133,7 +133,3 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: ${{ github.workflow }} успешно выполнен!
-#проблема с SSH
-# проверка локального публичного
-# проверка локального приватного
-# проверка локального приватного2
