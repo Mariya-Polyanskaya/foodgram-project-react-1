@@ -10,14 +10,14 @@ from rest_framework import status
 
 from foodgram.pagination import LimitPageNumberPagination
 from api.filters import IngredientFilter, RecipeFilter
-from recipes.models import (
-    Tag, Ingredient, Recipe, Favorite, ShoppingCart)
 from api.serializers import (
     TagSerializer, IngredientSerializer,
     RecipeSerializer, ReduceRecipeSerializer
 )
 from api.permissions import IsAdminOrReadOnly, IsAuthorOrAdmin
-from .utils import get_cart
+from recipes.utils import get_ingredients
+from recipes.models import (
+    Tag, Ingredient, Recipe, Favorite, ShoppingCart)
 
 
 class TagIngredientViewSet(viewsets.ReadOnlyModelViewSet):
@@ -73,17 +73,22 @@ class RecipesViewSet(viewsets.ModelViewSet):
             return self.delete_obj(ShoppingCart, request.user, pk)
         return None
 
-    @action(detail=False, permission_classes=(IsAuthenticated,))
+    @action(detail=False, permission_classes=[IsAuthenticated])
     def download_shopping_cart(self, request):
-        cart = get_cart(self, request)
-        response = HttpResponse(content_type='text/plain')
-        response['Content-Disposition'] = 'attachment; filename="cart.txt"'
-        for ingredient in cart:
-            row = '{} - {} {}\n'.format(
-                ingredient['ingredient__name'],
-                ingredient['count'],
-                ingredient['ingredient__measurement_unit'])
-            response.write(row)
+        ingredients = get_ingredients(self, request)
+        shopping_list = 'Список покупок:\n'
+        for number, ingredient in enumerate(ingredients, start=1):
+
+            shopping_list += (
+                f'{number} '
+                f'{ingredient["ingredient__name"]} - '
+                f'{ingredient["total"]} '
+                f'{ingredient["ingredient__measurement_unit"]}\n')
+
+        shoppingcart_list = 'shoppingcart_list.txt'
+        response = HttpResponse(shopping_list, content_type='text/plain')
+        response['Content-Disposition'] = (f'attachment;'
+                                           f'filename={shoppingcart_list}')
         return response
 
     def add_obj(self, model, user, pk):
