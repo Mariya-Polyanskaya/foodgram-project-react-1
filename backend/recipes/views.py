@@ -64,9 +64,11 @@ class RecipesViewSet(viewsets.ModelViewSet):
             return self.delete_obj(Favorite, request.user, pk)
         return None
 
-    @action(detail=True, methods=['post', 'delete'],
+    @action(detail=True, methods=['get', 'post', 'delete'],
             permission_classes=[IsAuthenticated])
     def shopping_cart(self, request, pk=None):
+        if request.method == 'GET':
+            return self.add_obj(ShoppingCart, request.user, pk)
         if request.method == 'POST':
             return self.add_obj(ShoppingCart, request.user, pk)
         if request.method == 'DELETE':

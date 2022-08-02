@@ -186,7 +186,7 @@ class ShoppingCart(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        # related_name='shoppingcart',
+        related_name='shoppingcart',
         verbose_name='Пользователь',
     )
     recipe = models.ForeignKey(
@@ -198,9 +198,8 @@ class ShoppingCart(models.Model):
 
     class Meta:
         ordering = ['-id']
-        verbose_name = 'Корзина'
-        verbose_name_plural = 'В корзине'
+        verbose_name = 'Список покупок'
         constraints = [
             models.UniqueConstraint(fields=['user', 'recipe'],
-                                    name='unique shoppingcart user')
+                                    name='unique shoppingcart recipe for user')
         ]
